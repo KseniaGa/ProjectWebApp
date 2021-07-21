@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ProjectWebApp.Models.KnowledgeTransfer>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 style="text-align:center;">KNOWLEDGE TRANSFER</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name of Teammate
+            </th>
+            <th>
+                Position
+            </th>
+            <th>
+                Position Experience
+            </th>
+            <th>
+                Team Experience
+            </th>
+            <th>
+                Improvement Points
+            </th>
+            <th>
+                Things To Keep
+            </th>
+            <th>
+                Final Advice
+            </th>
+            <th>
+                Project
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameofUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PositionExp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeamExp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImprovementPoints)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThingsToKeep)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinalAdvice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

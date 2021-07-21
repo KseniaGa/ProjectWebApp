@@ -1,0 +1,203 @@
+﻿@using ProjectWebApp.Models.TeamCanvasViewModel
+@using ProjectWebApp.Models
+@model TcViewModel
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 style="text-align:center;"> TEAM CANVAS </h1>
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<style>
+	.draggable {
+		width: 90px;
+		height: 90px;
+		padding: 0.5em;
+		float: left;
+		margin: 0 10px 10px 0;
+	}
+
+	#containment-wrapper, #containment-wrapper2, #containment-wrapper3, #containment-wrapper4 {
+		width: 50%;
+		height: 400px;
+		border: 2px solid #ccc;
+		padding: 10px;
+		float: left
+	}
+
+
+
+	#sortable, #sortable2, #sortable3, #sortable4 {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		width: 200px;
+	}
+
+		#sortable li, #sortable2 li, #sortable3 li, #sortable4 li {
+			padding: 1px;
+			float: left;
+			width: 150px;
+			height: 90px;
+			font-size: 1em;
+			text-align: center;
+		}
+</style>
+
+@section Scripts {
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+		$(function () {
+			$("#sortable, #sortable2, #sortable3, #sortable4").sortable();
+			$("#sortable, #sortable2, #sortable3, #sortable4").disableSelection();
+
+			$("#sortable li").draggable({ containment: "#containment-wrapper", scroll: false });
+			$("#sortable2 li").draggable({ containment: "#containment-wrapper2", scroll: false });
+			$("#sortable3 li").draggable({ containment: "#containment-wrapper3", scroll: false });
+			$("#sortable4 li").draggable({ containment: "#containment-wrapper4", scroll: false });
+
+
+		});
+
+	</script>
+
+}
+
+
+
+<div id="containment-wrapper">
+	<p style="text-align:center; font-size: 2em; color: Highlight;"> GOALS </p>
+	<ul id="sortable">
+		@foreach (var item in Model.Goals)
+		{
+			<li class="ui-state-default"> @Html.DisplayFor(modelItem => item.Content)  </li>
+		}
+	</ul>
+
+
+</div>
+
+
+
+
+
+<div id="containment-wrapper2">
+	<p style="text-align:center; font-size: 2em; color: darkseagreen; ">Activities</p>
+	<ul id="sortable2">
+		@foreach (var item in Model.Activities)
+		{
+			<li class="ui-state-default">  @Html.DisplayFor(modelItem => item.Content)  </li>
+		}
+	</ul>
+</div>
+
+
+
+<div id="containment-wrapper3">
+	<p style="text-align:center; font-size: 2em;  color: salmon; ">Skills</p>
+	<ul id="sortable3">
+		@foreach (var item in Model.Skills)
+		{
+
+			<li class="ui-state-default">  @Html.DisplayFor(modelItem => item.Content)  </li>
+
+		}
+	</ul>
+</div>
+
+
+
+<div id="containment-wrapper4">
+	<p style="text-align:center; font-size: 2em; color: silver ;">Values</p>
+	<ul id="sortable4">
+		@foreach (var item in Model.Values)
+		{
+
+			<li class="ui-state-default">  @Html.DisplayFor(modelItem => item.Content)  </li>
+
+		}
+	</ul>
+</div>
+
+
+
+
+
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Goals)
+			</th>
+
+			<th>
+				PROJECT
+			</th>
+
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		@foreach (var item in Model.Goals)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Content)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Project.Name)
+				</td>
+				<td>
+					<a asp-controller="Strength" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+					<a asp-controller="Strength" asp-action="Delete" asp-route-id="@item.Id">Delete</a>|
+					<a asp-controller="Strength" asp-action="Create">Add</a>|
+				</td>
+			</tr>
+		}
+
+	</tbody>
+</table>
+
+
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Activities)
+			</th>
+			<th>
+				PROJECT
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		@foreach (var item in Model.Activities)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Content)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Project.Name)
+				</td>
+				<td>
+					<a asp-controller="Weakness" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+					<a asp-controller="Weakness" asp-action="Create">Add</a> |
+					<a asp-controller="Weakness" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+				</td>
+			</tr>
+		}
+
+	</tbody>
+</table>
+
+

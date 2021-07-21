@@ -1,0 +1,355 @@
+﻿@model IEnumerable<ProjectWebApp.Models.Task>
+
+@{
+	ViewData["Title"] = "ProjectTasks";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!doctype html>
+<html lang="en">
+
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/demos/style.css">
+
+	<style>
+		#sortable1, #sortable2, #sortable3 {
+			border: 1px solid #eee;
+			width: 340px;
+			min-height: 40px;
+			list-style-type: none;
+			margin: 0;
+			padding: 5px 0 0 0;
+			float: left;
+			margin-right: 10px;
+		}
+
+			#sortable1 li, #sortable2 li, #sortable3 li {
+				margin: 0 5px 5px 5px;
+				padding: 5px;
+				font-size: 2.5em;
+				width: 330px;
+				color: dodgerblue;
+			}
+
+
+			* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;    
+		  }
+		  .container {
+			  max-width: 1200px;
+			  min-width: 650px;
+			  margin: 0 auto;
+			  padding: 50px;      
+		  }
+ 
+		  .chart {
+			  display: grid;
+			  border: 2px solid #000;
+			  position: relative;
+			  overflow: hidden;  
+		  }
+		  .chart-row {
+			display: grid;      
+			  grid-template-columns: 50px 1fr;
+			  
+		  }
+
+		  .chart-period {
+			
+			background-color:  #708090 !important;
+			border-bottom: 2px solid #000; 
+			grid-template-columns: 50px repeat(12, 1fr);
+		  }
+		  .chart-lines {
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			background-color: transparent;
+			grid-template-columns: 50px repeat(12, 1fr);
+		  }
+		  .chart-period > span {    
+			text-align: center;
+				font-size: 13px;
+				align-self: center;
+				font-weight: bold;
+			padding: 15px 0;    
+		  }
+		  .chart-lines > span {
+			display: block;
+			border-right: 1px solid rgba(0, 0, 0, 0.3);
+		  }
+ 
+		  .chart-row-item {
+			
+			border: 1px solid  #000;
+			border-top: 0;
+			border-left: 0;      
+			padding: 20px 0;
+			font-size: 15px;
+			font-weight: bold;
+			text-align: center;
+		  } 
+
+		  .chart-row-bars {
+			list-style: none;
+				display: grid;
+				padding: 15px 0;
+				margin: 0;
+				grid-template-columns: repeat(12, 1fr);
+				grid-gap: 10px 0;
+				border-bottom: 1px solid  #000;
+		  }
+		  li {
+			font-weight: 450;
+				text-align: left;
+				font-size: 15px;
+				min-height: 15px;
+				
+				padding: 5px 15px;
+				color: #fff;
+				overflow: hidden;
+				position: relative;
+				cursor: pointer;
+				border-radius: 15px;
+		  }
+		  ul .chart-li-one {
+			grid-column: 1/2; 
+			background-color:#588BAE;
+		  }
+		  ul .chart-li-two-a {
+			grid-column: 2/2; 
+			background-color: #0080FF;
+		  }
+		  ul .chart-li-two-b {
+			grid-column: 2/4; 
+			background-color:#4682B4;
+		  } 
+		  ul .chart-li-three {
+			grid-column: 3/5; 
+			background-color:#57A0D3;
+		  }
+		  ul .chart-li-four {
+			grid-column: 3/9; 
+			background-color:#0E4D92;
+		  }
+		  ul .chart-li-five {
+			grid-column: 7/10; 
+			background-color:#4F97A3;
+		  }
+		  ul .chart-li-six {
+			grid-column: 10/12; 
+			background-color:#73C2FB;
+		  }
+		  ul .chart-li-seven {
+			grid-column: 12/12; 
+			background-color:#0080FF;
+		  }
+
+
+
+	</style>
+
+	@section Scripts{
+
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script>
+			$(function () {
+
+				$("#sortable1, #sortable2, #sortable3").sortable({
+					connectWith: ".connectedSortable"
+
+				}).disableSelection();
+			});
+		</script>
+
+		<script>
+			$(function () {
+				$("#sortable1, #sortable2, #sortable3").sortable({
+					items: "li:not(.ui-state-disabled)"
+				});
+				$("#sortable1 li, #sortable2 li, #sortable3 li").disableSelection();
+			});
+		</script>
+
+
+
+	}
+</head>
+
+
+<body>
+	<h1>KANBAN BOARD</h1>
+
+	<p>
+		<a asp-action="Create">Create New</a>
+	</p>
+
+
+	<ul id="sortable1" class="connectedSortable">
+
+		<li class="ui-state-default ui-state-disabled"> TO DO </li>
+
+
+		@foreach (var item in Model.Where(i => i.todo))
+		{
+			<li class="ui-state-default">
+				@Html.DisplayFor(modelItem => item.Name)
+			</li>
+
+		}
+
+	</ul>
+
+
+	<ul id="sortable2" class="connectedSortable">
+		<li class="ui-state-default ui-state-disabled"> IN PROCESS </li>
+
+		@foreach (var item in Model.Where(i => i.process))
+		{
+			<li class="ui-state-default">
+				@Html.DisplayFor(modelItem => item.Name)
+			</li>
+		}
+	</ul>
+
+
+
+	<ul id="sortable3" class="connectedSortable">
+		<li class="ui-state-default ui-state-disabled"> DONE </li>
+
+		@foreach (var item in Model.Where(i => i.done))
+		{
+			<li class="ui-state-default">
+				@Html.DisplayFor(modelItem => item.Name)
+			</li>
+		}
+
+	</ul>
+
+
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.Name)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Project)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.todo)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.process)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.done)
+				</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Name)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Project.Name)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.todo)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.process)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.done)
+					</td>
+					<td>
+						<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+						<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+
+	<div class="container">
+		<div class="chart">
+			<div class="chart-row chart-period">
+				<div class="chart-row-item"></div>
+				<span>January</span><span>February</span><span>March</span>
+				<span>April</span><span>May</span><span>June</span>
+				<span>July</span><span>August</span><span>September</span>
+				<span>October</span><span>November</span><span>December</span>
+			</div>
+			<div class="chart-row chart-lines">
+				<span></span><span></span><span></span>
+				<span></span><span></span><span></span>
+				<span></span><span></span><span></span>
+				<span></span><span></span><span></span>
+			</div>
+			<div class="chart-row">
+				<div class="chart-row-item">1</div>
+				<ul class="chart-row-bars">
+					<li class="chart-li-one">Planning</li>
+				</ul>
+			</div>
+			<div class="chart-row">
+				<div class="chart-row-item">2</div>
+				<ul class="chart-row-bars">
+					<li class="chart-li-two-a">Design of materials</li>
+					<li class="chart-li-two-b">Analysis of CR strategy</li>
+				</ul>
+			</div>
+			<div class="chart-row">
+				<div class="chart-row-item">3</div>
+				<ul class="chart-row-bars">
+					<li class="chart-li-three">HR teambuildings</li>
+				</ul>
+			</div>
+			<div class="chart-row">
+				<div class="chart-row-item">4</div>
+				<ul class="chart-row-bars">
+					<li class="chart-li-four">Knowedge Transfer</li>
+				</ul>
+			</div>
+			<div class="chart-row">
+				<div class="chart-row-item">5</div>
+				<ul class="chart-row-bars">
+					<li class="chart-li-five">Meetup with participants</li>
+				</ul>
+			</div>
+			<div class="chart-row">
+				<div class="chart-row-item">6</div>
+				<ul class="chart-row-bars">
+					<li class="chart-li-six">Final preparation</li>
+				</ul>
+			</div>
+			<div class="chart-row">
+				<div class="chart-row-item">7</div>
+				<ul class="chart-row-bars">
+					<li class="chart-li-seven">Event</li>
+				</ul>
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+</body>
+</html>

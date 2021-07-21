@@ -1,0 +1,148 @@
+﻿@model IEnumerable<ProjectWebApp.Models.Task>
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+	<a asp-action="Create">CREATE NEW </a>
+</p>
+
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/demos/style.css">
+
+	<style>
+		#sortable1, #sortable2, #sortable3, #sortable4 {
+			border: 1px solid #eee;
+			width: 142px;
+			min-height: 20px;
+			list-style-type: none;
+			margin: 0;
+			padding: 5px 0 0 0;
+			float: left;
+			margin-right: 10px;
+		}
+
+			#sortable1 li, #sortable2 li, #sortable3 li, #sortable4 li {
+				margin: 0 5px 5px 5px;
+				padding: 5px;
+				font-size: 1.2em;
+				color: darkorange; 
+				width: 120px;
+			}
+	</style>
+
+	@section Scripts{
+
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script>
+			$(function () {
+				$("#sortable1, #sortable2, #sortable3, #sortable4").sortable({
+					connectWith: ".connectedSortable"
+				}).disableSelection();
+			});
+		</script>
+		<script>
+			$(function () {
+				$("#sortable1, #sortable2, #sortable3, #sortable4").sortable({
+					items: "li:not(.ui-state-disabled)"
+				});
+				$("#sortable1 li, #sortable2 li, #sortable3, #sortable4").disableSelection();
+			});
+		</script>
+	}
+</head>
+<body>
+
+
+
+	<ul id="sortable1" >
+
+		<li class="ui-state-default ui-state-disabled"> S.M.A.R.T. GOALS </li>
+		<li class="ui-state-default"> Get 3 partnerships </li>
+		<li class="ui-state-default"> Acheive award for BEST TEAM </li>
+
+
+	</ul>
+
+
+	<ul id="sortable2" >
+		<li class="ui-state-default ui-state-disabled"> VALUES </li>
+		<li class="ui-state-default"> Openness in communication </li>
+		<li class="ui-state-default"> Responsibility </li>
+
+	</ul>
+
+	<ul id="sortable3" >
+		<li class="ui-state-default ui-state-disabled"> ACTIVITIES </li>
+		<li class="ui-state-default"> Get in touch everyday  </li>
+	</ul>
+
+	<ul id="sortable4" >
+		<li class="ui-state-default ui-state-disabled"> SKILLS </li>
+		<li class="ui-state-default"> Public Relations experience </li>
+		<li class="ui-state-default"> Experience in organizing projects </li>
+	</ul>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Project)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.todo)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Name)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Project.Name)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.todo)
+			</td>
+			<td>
+				<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+				<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+				<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+			</td>
+		</tr>
+		}
+	</tbody>
+</table>

@@ -1,0 +1,52 @@
+﻿@model ProjectWebApp.Models.Project
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>ABOUT PROJECT</h1>
+
+<div>
+
+    <hr />
+	<dl class="row">
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Name)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Name)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.StartDate)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.StartDate)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.EndDate)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.EndDate)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Description)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Description)
+		</dd>
+
+
+	</dl>
+</div>
+<div style="font-size: 2em;">
+	<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+	<a asp-controller="Task" asp-action="ProjectTasks" asp-route-id="@Model.Id"> Tasks</a> |
+	<a asp-controller="SWOT" asp-action="Index" asp-route-id="@Model.Id"> SWOT</a> |
+	<a asp-controller="Tc" asp-action="Index" asp-route-id="@Model.Id"> Team Canvas</a> |
+	<a asp-controller="Report" asp-action="Index" asp-route-id="@Model.Id"> Reports </a> |
+	<a asp-controller="FileModel" asp-action="Index"> Files </a> |
+	<a asp-controller="Logistics" asp-action="Index" asp-route-id="@Model.Id"> Logistics </a> |
+	<a asp-controller="Eval" asp-action="Index" asp-route-id="@Model.Id"> Evaluation </a> |
+	<a asp-controller="KnowledgeTransfer" asp-action="Index" asp-route-id="@Model.Id"> KT </a> |
+	<a asp-action="Index">Back to List</a>
+</div>

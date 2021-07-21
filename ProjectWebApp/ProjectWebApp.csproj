@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>aspnet-ProjectWebApp-430E843D-8A79-4EAF-9007-266A32125F12</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="jqwidgets-ver9.1.4\**" />
+    <Content Remove="jqwidgets-ver9.1.4\**" />
+    <EmbeddedResource Remove="jqwidgets-ver9.1.4\**" />
+    <None Remove="jqwidgets-ver9.1.4\**" />
+    <TypeScriptCompile Remove="jqwidgets-ver9.1.4\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200612154646_exp.cs" />
+    <Compile Remove="Data\Migrations\20200612154646_exp.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200614125709_Kanban2.cs" />
+    <Compile Remove="Data\Migrations\20200614125709_Kanban2.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200615142423_FileMigration.cs" />
+    <Compile Remove="Data\Migrations\20200615142423_FileMigration.Designer.cs" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="jQuery.UI.Combined" Version="1.12.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.8.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Views\TC\" />
+    <Folder Include="wwwroot\Files\" />
+  </ItemGroup>
+
+</Project>

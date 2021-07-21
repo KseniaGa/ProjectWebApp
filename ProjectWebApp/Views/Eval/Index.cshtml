@@ -1,0 +1,206 @@
+﻿@using ProjectWebApp.Models.Evaluation
+@using ProjectWebApp.Models
+@model EvalViewModel
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!doctype html>
+<html lang="en">
+
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/demos/style.css">
+
+	<style>
+			#sortable1 {
+			border: 1px solid #eee;
+			width: 450px;
+			min-height: 40px;
+			list-style-type: none;
+			margin: 0;
+			padding: 5px 0 0 0;
+			float: left;
+			margin-right: 10px;
+			font-size: 2em; 
+			align-content:center;
+		}
+
+			#sortable2 {
+			border: 1px solid #eee;
+			width: 450px;
+			min-height: 40px;
+			list-style-type: none;
+			margin: 0;
+			padding: 5px 0 0 0;
+			float: left;
+			margin-right: 10px;
+			font-size: 2em;
+			align-content:center;
+			
+		}
+
+			#sortable1 li {
+				margin: 0 5px 5px 5px;
+				padding: 5px;
+				width: 440px;
+				color: mediumspringgreen;
+			}
+
+			#sortable2 li {
+				margin: 0 5px 5px 5px;
+				padding: 5px;
+				width: 440px;
+				color: indianred;
+			}
+
+
+	</style>
+
+	@section Scripts{
+
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script>
+			$(function () {
+				$("#sortable1, #sortable2").sortable({
+					connectWith: ".connectedSortable"
+				}).disableSelection();
+			});
+		</script>
+		<script>
+			$(function () {
+				$("#sortable1, #sortable2").sortable({
+					items: "li:not(.ui-state-disabled)"
+				});
+				$("#sortable1 li, #sortable2 li").disableSelection();
+			});
+		</script>
+	}
+</head>
+
+
+<body>
+	<h1> EVALUATION </h1>
+
+	<div style="align-content:center;">
+
+		<ul id="sortable1">
+
+			<li class="ui-state-default ui-state-disabled"> Positive Points  </li>
+
+
+			@foreach (var item in Model.PosPoints)
+			{
+				<li class="ui-state-default">
+					@Html.DisplayFor(modelItem => item.Point)
+				</li>
+
+			}
+
+		</ul>
+
+
+		<ul id="sortable2">
+			<li class="ui-state-default ui-state-disabled"> Improvement Points </li>
+
+			@foreach (var item in Model.NegPoints)
+			{
+				<li class="ui-state-default">
+					@Html.DisplayFor(modelItem => item.Point)
+				</li>
+
+			}
+
+
+		</ul>
+
+	</div>
+
+
+
+
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					Improvement points 
+				</th>
+
+				<th>
+					PROJECT
+				</th>
+
+				<th></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			@foreach (var item in Model.NegPoints)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Point)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Project.Name)
+					</td>
+					<td>
+						<a asp-controller="Strength" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+						<a asp-controller="Strength" asp-action="Delete" asp-route-id="@item.Id">Delete</a>|
+						<a asp-controller="Strength" asp-action="Create">Add</a>|
+					</td>
+				</tr>
+			}
+
+		</tbody>
+	</table>
+
+
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					Positive points
+				</th>
+				<th>
+					PROJECT
+				</th>
+				<th></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			@foreach (var item in Model.PosPoints)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Point)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Project.Name)
+					</td>
+					<td>
+						<a asp-controller="Weakness" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+						<a asp-controller="Weakness" asp-action="Create">Add</a> |
+						<a asp-controller="Weakness" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+					</td>
+				</tr>
+			}
+
+		</tbody>
+	</table>
+
+
+
+</body>
+</html>

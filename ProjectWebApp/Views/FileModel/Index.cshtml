@@ -1,0 +1,22 @@
+﻿@model IEnumerable<ProjectWebApp.Models.FileModel>
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>PROJECT MATERIALS</h1>
+
+<br />
+<br />
+
+<h3>Choose a file: </h3>
+<form asp-action="AddFile" asp-controller="FileModel" method="post" enctype="multipart/form-data">
+	<input type="file" name="uploadedFile" /><br>
+	<input type="submit" value="Загрузить" />
+</form>
+
+<h3>All project materials: </h3>
+@foreach (var f in Model)
+{
+	<p><img style='width:850px; height:450px;' src="@Url.Content(f.Path)"></p>
+}
